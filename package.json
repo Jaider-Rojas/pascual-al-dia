@@ -1,0 +1,19 @@
+{
+  "name": "pascual-al-dia",
+  "version": "1.0.0",
+  "description": "Pascual Al Día Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jaider-Rojas/pascual-al-dia.git"
+  },
+  "author": "CodeCave",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jaider-Rojas/pascual-al-dia/issues"
+  },
+  "homepage": "https://github.com/Jaider-Rojas/pascual-al-dia#readme"
+}
