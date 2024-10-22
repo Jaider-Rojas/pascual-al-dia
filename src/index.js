@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bcrypt = require("bcrypt");
-const { usuariosCollection, eventosCollection } = require("./config");
+const { usuariosCollection, eventosCollection, noticiasCollection } = require("./config");
 
 const app = express();
 
@@ -25,6 +25,18 @@ app.get("/inicioadmin", async (req, res) => {
     res.render("inicioadmin", { eventos });
 });
 
+app.get("/noticias", async (req, res) => {
+    const noticias = await noticiasCollection.find();
+
+    res.render("noticias", { noticias });
+});
+
+app.get("/noticiasadmin", async (req, res) => {
+    const noticias = await noticiasCollection.find();
+
+    res.render("noticiasadmin", { noticias });
+});
+
 app.get("/editareventos/:id", async (req, res) => {
     const evento = await eventosCollection.findById(req.params.id);
     if (!evento) {
@@ -45,6 +57,43 @@ app.post("/editareventos/:id", async (req, res) => {
             categoria,
         });
         res.redirect("/inicioadmin");
+    } catch (err) {
+        console.error("Error capturado:", err);
+        res.send("Ocurrió un error inesperado.");
+    }
+});
+
+app.get("/editarnoticias/:id", async (req, res) => {
+    const noticia = await noticiasCollection.findById(req.params.id);
+    if (!noticia) {
+        return res.status(404).send("Noticia no encontrada");
+    }
+    res.render("editarnoticias", { noticia });
+});
+
+app.post("/editarnoticias/:id", async (req, res) => {
+    try {
+        const { titulo, contenido, fechaPublicacion, autor, categoria, destacada, enlaces } = req.body;
+        await noticiasCollection.findByIdAndUpdate(req.params.id, {
+            titulo,
+            contenido,
+            fechaPublicacion,
+            autor,
+            categoria,
+            destacada,
+            enlaces,
+        });
+        res.redirect("/noticiasadmin");
+    } catch (err) {
+        console.error("Error capturado:", err);
+        res.send("Ocurrió un error inesperado.");
+    }
+});
+
+app.post("/eliminarnoticias/:id", async (req, res) => {
+    try {
+        await noticiasCollection.findByIdAndDelete(req.params.id);
+        res.redirect("/noticiasadmin");
     } catch (err) {
         console.error("Error capturado:", err);
         res.send("Ocurrió un error inesperado.");

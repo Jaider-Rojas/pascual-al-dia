@@ -28,11 +28,11 @@ const eventSchema = new mongoose.Schema({
   fechaFin: Date,
   ubicacion: String,
   categoria: String,
-  organizador: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  organizador: String,
   instructivos: String,
   imagenes: [String],
   comentarios: [{
-    usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    usuario: String,
     texto: String,
     fecha: Date
   }]
@@ -41,4 +41,39 @@ const eventSchema = new mongoose.Schema({
 const eventosCollection = mongoose.model("eventos", eventSchema);
 
 
-module.exports = { usuariosCollection, eventosCollection };
+const noticiaSchema = new mongoose.Schema({
+    _id: mongoose.Schema.Types.ObjectId,
+    titulo: {
+        type: String,
+        required: true
+    },
+    contenido: {
+        type: String,
+        required: true
+    },
+    fechaPublicacion: {
+        type: Date,
+        default: Date.now
+    },
+    autor: String,
+    categoria: {
+        type: String,
+        required: true
+    },
+    destacada: {
+        type: Boolean,
+        default: false
+    },
+    enlaces: [{
+        type: String
+    }],
+    comentarios: [{
+        usuario: String,
+        texto: String,
+        fecha: Date
+    }]
+});
+
+const noticiasCollection = mongoose.model("noticias", noticiaSchema);
+
+module.exports = { usuariosCollection, eventosCollection, noticiasCollection };
