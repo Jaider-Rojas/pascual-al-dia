@@ -9,7 +9,7 @@ connect.then(() => {
 });
 
 const LoginSchema = new mongoose.Schema({
-    nombre: {
+    correo: {
         type: String,
         required: true
     },
