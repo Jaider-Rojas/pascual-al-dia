@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bcrypt = require("bcrypt");
-const collection = require("./config");
+const { usuariosCollection, eventosCollection } = require("./config");
 
 const app = express();
 
@@ -12,8 +12,53 @@ app.set('view engine', 'ejs');
 
 app.use(express.static("public"));
 
-app.get("/", (req, res) => {
-    res.render("inicio");
+
+app.get("/", async (req, res) => {
+    const eventos = await eventosCollection.find();
+
+    res.render("inicio", { eventos });
+});
+
+app.get("/inicioadmin", async (req, res) => {
+    const eventos = await eventosCollection.find();
+
+    res.render("inicioadmin", { eventos });
+});
+
+app.get("/editareventos/:id", async (req, res) => {
+    const evento = await eventosCollection.findById(req.params.id);
+    if (!evento) {
+        return res.status(404).send("Evento no encontrado");
+    }
+    res.render("editareventos", { evento });
+});
+
+app.post("/editareventos/:id", async (req, res) => {
+    try {
+        const { nombre, descripcion, fechaInicio, fechaFin, ubicacion, categoria } = req.body;
+        await eventosCollection.findByIdAndUpdate(req.params.id, {
+            nombre,
+            descripcion,
+            fechaInicio,
+            fechaFin,
+            ubicacion,
+            categoria,
+        });
+        res.redirect("/inicioadmin");
+    } catch (err) {
+        console.error("Error capturado:", err);
+        res.send("Ocurrió un error inesperado.");
+    }
+});
+
+app.post("/eliminareventos/:id", async (req, res) => {
+    try {
+        await eventosCollection.findByIdAndDelete(req.params.id);
+        res.redirect("/inicioadmin");
+    } catch (err) {
+        console.error("Error capturado:", err);
+        res.send("Ocurrió un error inesperado.");
+    }
 });
 
 app.get("/login", (req, res) => {
@@ -22,8 +67,9 @@ app.get("/login", (req, res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        // Buscar el usuario por su correo
-        const user = await collection.findOne({ correo: req.body.email });
+
+        const eventos = await eventosCollection.find();
+        const user = await usuariosCollection.findOne({ correo: req.body.email });
 
         if (!user) {
             return res.send("El correo ingresado es inválido.");
@@ -32,7 +78,7 @@ app.post("/login", async (req, res) => {
         const usuarioClave = user.clave;
 
         if (req.body.password === usuarioClave) {
-            res.render("inicio");
+            res.render("inicioadmin", { eventos });
         } else {
             res.send("La contraseña ingresada es incorrecta.");
         }
