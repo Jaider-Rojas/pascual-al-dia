@@ -118,7 +118,7 @@ app.post("/login", async (req, res) => {
     try {
 
         const eventos = await eventosCollection.find();
-        const user = await usuariosCollection.findOne({ correo: req.body.email });
+        const user = await usuariosCollection.findOne({ correo: req.body.correo.trim() });
 
         if (!user) {
             return res.send("El correo ingresado es inválido.");
@@ -126,7 +126,7 @@ app.post("/login", async (req, res) => {
 
         const usuarioClave = user.clave;
 
-        if (req.body.password === usuarioClave) {
+        if (req.body.password == usuarioClave) {
             res.render("inicioadmin", { eventos });
         } else {
             res.send("La contraseña ingresada es incorrecta.");
