@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Eventos | Pascual Al Día</title>
+    <title>Crear Eventos | Pascual Al Día</title>
     <link rel="stylesheet" type="text/css" href="/style.css">
     <style>
       /* Global styles */
@@ -106,32 +106,42 @@
         </div>
       </nav>
 
-    <main class="container mx-auto px-4 py-8">
+      <main class="container mx-auto px-4 py-8">
         <div class="max-w-screen-xl mx-auto p-4">
-            <h1 class="text-2xl font-bold mb-4">Editar Evento</h1>
-            <form action="/editareventos/<%= evento._id %>" method="POST">
+            <h1 class="text-2xl font-bold mb-4">Crear Evento</h1>
+            <form action="/creareventos" method="POST">
                 <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="<%= evento.nombre %>" required>
+                <input type="text" id="nombre" name="nombre" required>
                 <br>
                 <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" required><%= evento.descripcion %></textarea>
+                <textarea id="descripcion" name="descripcion" required></textarea>
                 <br>
                 <label for="fechaInicio">Fecha Inicio:</label>
-                <input type="datetime-local" id="fechaInicio" name="fechaInicio" value="<%= evento.fechaInicio.toISOString().slice(0, 16) %>" required>
+                <input type="datetime-local" id="fechaInicio" name="fechaInicio" required>
                 <br>
                 <label for="fechaFin">Fecha Fin:</label>
-                <input type="datetime-local" id="fechaFin" name="fechaFin" value="<%= evento.fechaFin.toISOString().slice(0, 16) %>" required>
+                <input type="datetime-local" id="fechaFin" name="fechaFin" required>
                 <br>
                 <label for="ubicacion">Ubicación:</label>
-                <input type="text" id="ubicacion" name="ubicacion" value="<%= evento.ubicacion %>" required>
+                <input type="text" id="ubicacion" name="ubicacion" required>
                 <br>
                 <label for="categoria">Categoría:</label>
-                <input type="text" id="categoria" name="categoria" value="<%= evento.categoria %>" required>
+                <input type="text" id="categoria" name="categoria" required>
                 <br>
-                <button type="submit" class="text-black bg-blue-500 hover:bg-blue-700 font-semibold py-2 px-4 rounded">Actualizar</button>
-                <button type="submit" class="text-black bg-blue-500 hover:bg-blue-700 font-semibold py-2 px-4 rounded" href="/inicioadmin">Volver</button>
+                <label for="organizador">Organizador:</label>
+                <input type="text" id="organizador" name="organizador" required>
+                <br>
+                <label for="instructivos">Instructivos:</label>
+                <textarea id="instructivos" name="instructivos"></textarea>
+                <br>
+                <label for="imagenes">Imágenes (URLs, separados por comas):</label>
+                <input type="text" id="imagenes" name="imagenes" placeholder="url1.com, url2.com">
+                <br>
+                <button type="submit" class="text-black bg-blue-500 hover:bg-blue-700 font-semibold py-2 px-4 rounded">Crear</button>
+                <a href="/inicioadmin" class="text-black bg-blue-500 hover:bg-blue-700 font-semibold py-2 px-4 rounded">Volver</a>
             </form>
         </div>
     </main>
+    
 </body>
 </html>

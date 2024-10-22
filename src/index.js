@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const path = require('path');
 const bcrypt = require("bcrypt");
 const { usuariosCollection, eventosCollection, noticiasCollection } = require("./config");
@@ -63,6 +64,86 @@ app.post("/editareventos/:id", async (req, res) => {
     }
 });
 
+app.get("/creareventos", async (req, res) => {
+    res.render("creareventos");
+});
+
+app.post("/creareventos", async (req, res) => {
+    try {
+        const { nombre, descripcion, fechaInicio, fechaFin, ubicacion, categoria, organizador, instructivos, imagenes } = req.body;
+
+        if (!nombre || !descripcion || !fechaInicio || !fechaFin || !ubicacion || !categoria || !organizador) {
+            return res.status(400).send("Todos los campos son obligatorios.");
+        }
+
+        const fechaInicioDate = new Date(fechaInicio);
+        const fechaFinDate = new Date(fechaFin);
+        if (isNaN(fechaInicioDate) || isNaN(fechaFinDate)) {
+            return res.status(400).send("Las fechas deben ser válidas.");
+        }
+        if (fechaInicioDate >= fechaFinDate) {
+            return res.status(400).send("La fecha de inicio debe ser anterior a la fecha de fin.");
+        }
+
+        const nuevasEvento = new eventosCollection({
+            _id: new mongoose.Types.ObjectId(),
+            nombre,
+            descripcion,
+            fechaInicio: new Date(fechaInicio),
+            fechaFin: new Date(fechaFin),
+            ubicacion,
+            categoria,
+            organizador,
+            instructivos,
+            imagenes: [],
+            comentarios: [],
+        });
+        await eventosCollection.create(nuevasEvento);
+        res.redirect("/inicioadmin");
+    } catch (err) {
+        console.error("Error capturado:", err);
+        res.send("Ocurrió un error inesperado.");
+    }
+});
+
+
+app.get("/crearnoticias", async (req, res) => {
+    res.render("crearnoticias");
+});
+
+app.post("/crearnoticias", async (req, res) => {
+    try {
+        const { titulo, contenido, fechaPublicacion, autor, categoria, destacada, enlaces } = req.body;
+        
+        if (!titulo || !contenido || !fechaPublicacion || !autor || !categoria) {
+            return res.status(400).send("Todos los campos son obligatorios.");
+        }
+
+        const fechaPublicacionDate = new Date(fechaPublicacion);
+        if (isNaN(fechaPublicacionDate)) {
+            return res.status(400).send("La fecha de publicación debe ser válida.");
+        }
+
+
+        const nuevaNoticia = new noticiasCollection({
+            _id: new mongoose.Types.ObjectId(),
+            titulo,
+            contenido,
+            fechaPublicacion: new Date(fechaPublicacion),
+            autor,
+            categoria,
+            destacada: destacada === 'on',
+            enlaces: enlaces ? enlaces.split(',').map(enlace => enlace.trim()) : [],
+        });        
+        await noticiasCollection.create(nuevaNoticia);
+        res.redirect("/noticiasadmin");
+    } catch (err) {
+        console.error("Error capturado:", err);
+        res.send("Ocurrió un error inesperado.");
+    }
+});
+
+
 app.get("/editarnoticias/:id", async (req, res) => {
     const noticia = await noticiasCollection.findById(req.params.id);
     if (!noticia) {
@@ -89,6 +170,8 @@ app.post("/editarnoticias/:id", async (req, res) => {
         res.send("Ocurrió un error inesperado.");
     }
 });
+
+
 
 app.post("/eliminarnoticias/:id", async (req, res) => {
     try {
