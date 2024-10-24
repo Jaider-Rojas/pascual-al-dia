@@ -1,182 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noticias | Pascual Al Día</title>
-    <link rel="stylesheet" type="text/css" href="/style.css">
-    <style>
-        /* Global styles */
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-    
-        main {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-    
-        /* Form styles */
-        #botonform {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-        }
-    
-        form h1 {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-    
-        /* Input styles */
-        input[type="text"],
-        input[type="datetime-local"],
-        textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-    
-        input[type="text"]:focus,
-        input[type="datetime-local"]:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-        }
-    
-        /* Button style */
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-    
-        button:hover {
-            background-color: #0056b3;
-        }
-    
-        /* Responsive design */
-        @media (max-width: 768px) {
-            form {
-                max-width: 90%;
-            }
-        }
-    
-        .button-container {
-            display: flex;
-            /* Use flexbox to arrange items in a row */
-            align-items: center;
-            /* Align items vertically in the center */
-        }
-    
-        .button-container form {
-            margin-right: 10px;
-            /* Add some space between the buttons */
-        }
-    </style>
-</head>
-<body>
-    <nav class="bg-white border-gray-200 dark:bg-gray-900">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-              <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="# Logo" />
-              <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Pascual al Día</span>
-          </a>
-          <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-              <span class="sr-only">Abrir menú principal</span>
-              <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-              </svg>
-          </button>
-          <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-            <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                    <a href="/inicioadmin" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Eventos</a>
-                  </li>
-                <li>
-                <a href="/noticiasadmin" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Noticias</a>
-              </li>
-              <li>
-                <a href="/" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Cerrar sesión</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Noticias | Pascual Al Día</title>
+		<link rel="stylesheet" type="text/css" href="/style.css" />
+		<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+	</head>
 
-      <main class="container mx-auto px-4 py-8">
-        <div class="flex items-center justify-center mb-8">
-            <h1 class="text-3xl font-bold text-center" style="padding-right: 10px;">Noticias</h1>
-            <form action="/crearnoticias" method="get" class="ml-4">
-                <button type="submit" class="text-white bg-green-500 hover:bg-green-700 font-semibold py-2 px-4 rounded">
-                    + Crear
-                </button>
-            </form>
-        </div>        
-        <div class="max-w-screen-xl mx-auto p-4">
-            <div class="card bg-white shadow-lg rounded-lg p-6">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <% for (const noticia of noticias) { %>
-                        <div class="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col justify-between">
-                            <div class="p-4">
-                                <h3 class="text-2xl font-bold text-gray-800 mb-2">
-                                    <%= noticia.titulo %> 
-                                </h3>
-                                <p class="text-gray-700 mb-2">
-                                    <%= noticia.contenido %> 
-                                </p>
-                                <p class="text-gray-600"><strong>Fecha de Publicación:</strong>
-                                    <%= noticia.fechaPublicacion.toLocaleDateString() %> - <%= noticia.fechaPublicacion.toLocaleTimeString() %> 
-                                </p>
-                                <p class="text-gray-600"><strong>Autor:</strong>
-                                    <%= noticia.autor %></p> 
-                                <p class="text-gray-600"><strong>Categoría:</strong>
-                                    <%= noticia.categoria %></p> 
-                                <% if (noticia.enlaces && noticia.enlaces.length > 0) { %>
-                                    <div class="mt-2">
-                                        <strong>Enlaces:</strong>
-                                        <ul>
-                                            <% noticia.enlaces.forEach(enlace => { %>
-                                                <li>
-                                                    <a href="<%= enlace %>" class="text-blue-500 hover:text-blue-700"><%= enlace %></a>
-                                                </li>
-                                            <% }) %>
-                                        </ul>
-                                    </div>
-                                <% } %>
-                                <div class="button-container">
-                                    <form action="/editarnoticias/<%= noticia._id %>" method="get">
-                                        <button type="submit" class="mt-4 text-black bg-blue-500 hover:bg-blue-700 font-semibold py-2 px-4 rounded">
-                                            Editar
-                                        </button>
-                                    </form>
-                                    <form action="/eliminarnoticias/<%= noticia._id %>" method="POST" class="mt-2">
-                                        <button type="submit" class="text-white bg-red-500 hover:bg-red-700 font-semibold py-2 px-4 rounded">
-                                            Eliminar
-                                        </button>
-                                    </form>
-                                </div>  
-                            </div>
-                        </div>
-                    <% } %>
-                </div>
-            </div>
-        </div>
-    </main>
+	<body>
+		<nav class="bg-white border-gray-200 dark:bg-gray-900">
+			<div
+				class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+			>
+				<a
+					href="#"
+					class="flex items-center space-x-3 rtl:space-x-reverse"
+				>
+					<img
+						src="https://flowbite.com/docs/images/logo.svg"
+						class="h-8"
+						alt="# Logo"
+					/>
+					<span
+						class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
+						>Pascual al Día</span
+					>
+				</a>
+				<button
+					data-collapse-toggle="navbar-default"
+					type="button"
+					class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+					aria-controls="navbar-default"
+					aria-expanded="false"
+				>
+					<span class="sr-only">Abrir menú principal</span>
+					<svg
+						class="w-5 h-5"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 17 14"
+					>
+						<path
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M1 1h15M1 7h15M1 13h15"
+						/>
+					</svg>
+				</button>
+				<div
+					class="hidden w-full md:block md:w-auto"
+					id="navbar-default"
+				>
+					<ul
+						class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+					>
+						<li>
+							<a
+								href="/inicioadmin"
+								class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+								>Eventos</a
+							>
+						</li>
+						<li>
+							<a
+								href="/noticiasadmin"
+								class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+								aria-current="page"
+								>Noticias</a
+							>
+						</li>
+						<li>
+							<a
+								href="/"
+								class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+								>Cerrar sesión</a
+							>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-</body>
+		<main class="container mx-auto px-4 py-8">
+			<div class="flex items-center justify-center mb-8">
+				<h1
+					class="text-3xl font-bold text-center"
+					style="padding-right: 10px"
+				>
+					Noticias
+				</h1>
+				<form action="/crearnoticias" method="get" class="ml-4">
+					<button
+						type="submit"
+						class="text-white bg-green-500 hover:bg-green-700 font-semibold py-2 px-4 rounded"
+					>
+						+ Crear
+					</button>
+				</form>
+			</div>
+			<div class="max-w-screen-xl mx-auto p-4">
+				<div class="card bg-white shadow-lg rounded-lg p-6">
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+						<% for (const noticia of noticias) { %>
+						<div
+							class="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col justify-between"
+						>
+							<div class="p-4">
+								<h3
+									class="text-2xl font-bold text-gray-800 mb-2"
+								>
+									<%= noticia.titulo %>
+								</h3>
+								<p class="text-gray-700 mb-2">
+									<%= noticia.contenido %>
+								</p>
+								<p class="text-gray-600">
+									<strong>Fecha de Publicación:</strong>
+									<%=
+									noticia.fechaPublicacion.toLocaleDateString()
+									%> - <%=
+									noticia.fechaPublicacion.toLocaleTimeString()
+									%>
+								</p>
+								<p class="text-gray-600">
+									<strong>Autor:</strong>
+									<%= noticia.autor %>
+								</p>
+								<p class="text-gray-600">
+									<strong>Categoría:</strong>
+									<%= noticia.categoria %>
+								</p>
+								<% if (noticia.enlaces &&
+								noticia.enlaces.length> 0) { %>
+								<div class="mt-2">
+									<strong>Enlaces:</strong>
+									<ul>
+										<% noticia.enlaces.forEach(enlace=> { %>
+										<li>
+											<a
+												href="<%= enlace %>"
+												class="text-blue-500 hover:text-blue-700"
+											>
+												<%= enlace %>
+											</a>
+										</li>
+										<% }) %>
+									</ul>
+								</div>
+								<% } %>
+								<div class="button-container">
+									<form
+										action="/editarnoticias/<%= noticia._id %>"
+										method="get"
+									>
+										<button
+											type="submit"
+											class="mt-4 text-black bg-blue-500 hover:bg-blue-700 font-semibold py-2 px-4 rounded"
+										>
+											Editar
+										</button>
+									</form>
+									<form
+										action="/eliminarnoticias/<%= noticia._id %>"
+										method="POST"
+										class="mt-2"
+									>
+										<button
+											type="submit"
+											class="text-white bg-red-500 hover:bg-red-700 font-semibold py-2 px-4 rounded"
+										>
+											Eliminar
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<% } %>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
 </html>
