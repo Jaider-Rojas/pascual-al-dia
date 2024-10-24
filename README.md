@@ -6,6 +6,24 @@ Este repositorio contiene el código fuente y la documentación para la aplicaci
 
 "Pascual al Día" es una solución de software centralizada que mejora la visibilidad, accesibilidad y participación en las actividades extracurriculares de la Institución Universitaria Pascual Bravo. La plataforma aborda el problema de la comunicación fragmentada a través de diversos canales, lo que ha llevado a una baja participación estudiantil. "Pascual al Día" centraliza toda la información en una plataforma única, intuitiva e interactiva, facilitando el acceso a la comunidad universitaria y fomentando una mayor participación.
 
+## Cómo configurar el proyecto
+
+1. Clona el repositorio:
+   ```bash
+   git clone <URL_DEL_REPOSITORIO>
+   ```
+2. Asegúrate de tener **Node.js** y **npm** instalados en tu máquina.
+3. Instala las dependencias especificadas en `package.json`:
+   ```bash
+   npm install
+   ```
+4. Instala y configura el servidor **MongoDB 4.4**. Consulta el archivo `estructura.png` para la configuración y utiliza el archivo `queriesInsert.html` para insertar registros de prueba.
+5. Inicia el servidor utilizando **nodemon**:
+   ```bash
+   nodemon ./src/index.js
+   ```
+6. Accede a la página en la dirección `http://localhost:5000`.
+
 ## Características Principales
 
 - **Calendario de eventos**: Visualiza y explora eventos, programas, noticias y beneficios ofrecidos por la institución.
